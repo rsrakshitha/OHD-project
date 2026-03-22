@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Facility</title>
+</head>
+<body>
+
+<h2>Add / Edit Facility</h2>
+
+<form action="/admin/facilities/save" method="post" th:object="${facility}">
+
+    <input type="hidden" th:field="*{id}"/>
+
+    Name: <input type="text" th:field="*{name}" required><br><br>
+
+    Description: <input type="text" th:field="*{description}" required><br><br>
+
+    <button type="submit">Save</button>
+
+</form>
+
+</body>
+</html>

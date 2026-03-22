@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Facilities</title>
+</head>
+<body>
+
+<h2>Facilities List</h2>
+
+<a href="/admin/facilities/add">Add Facility</a>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Actions</th>
+    </tr>
+
+    <tr th:each="f : ${facilities}">
+        <td th:text="${f.id}"></td>
+        <td th:text="${f.name}"></td>
+        <td th:text="${f.description}"></td>
+        <td>
+            <a th:href="@{'/admin/facilities/edit/' + ${f.id}}">Edit</a> |
+            <a th:href="@{'/admin/facilities/delete/' + ${f.id}}">Delete</a>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

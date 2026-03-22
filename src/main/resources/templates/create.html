@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Request</title>
+</head>
+<body>
+
+<h2>Create Service Request</h2>
+
+<form action="/save" method="post">
+
+    <!-- Title -->
+    Title:
+    <input type="text" name="title" required>
+    <br><br>
+
+    <!-- Facility -->
+    Facility:
+    <select name="facility" required>
+        <option value="">--Select Facility--</option>
+        <option value="Lab">Lab</option>
+        <option value="Hostel">Hostel</option>
+        <option value="Library">Library</option>
+        <option value="Canteen">Canteen</option>
+    </select>
+    <br><br>
+
+    <!-- Description -->
+    Description:
+    <input type="text" name="description" required>
+    <br><br>
+
+    <!-- Priority -->
+    Priority:
+    <select name="priority" required>
+        <option value="">--Select Priority--</option>
+        <option value="LOW">Low</option>
+        <option value="MEDIUM">Medium</option>
+        <option value="HIGH">High</option>
+    </select>
+    <br><br>
+
+    <!-- ✅ NEW: Severity -->
+    Severity:
+    <select name="severity" required>
+        <option value="">--Select Severity--</option>
+        <option value="LOW">LOW</option>
+        <option value="MEDIUM">MEDIUM</option>
+        <option value="HIGH">HIGH</option>
+        <option value="CRITICAL">CRITICAL</option>
+    </select>
+    <br><br>
+
+    <button type="submit">Submit</button>
+
+</form>
+
+</body>
+</html>
