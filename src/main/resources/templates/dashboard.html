@@ -2,29 +2,63 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
+
 <body>
 
-<h2>📊 Dashboard</h2>
+<!-- NAVBAR -->
+<div class="navbar">
+    <h2>Online Help Desk - Dashboard</h2>
+</div>
 
-<h3>Total Requests: <span th:text="${total}"></span></h3>
+<div class="container">
 
-<h3>Open Requests: <span th:text="${open}"></span></h3>
+    <h2 class="dashboard-title">📊 Dashboard Overview</h2>
 
-<h3>Closed Requests: <span th:text="${closed}"></span></h3>
+    <!-- CARDS -->
+    <div class="card-container">
 
-<h3>Rejected Requests: <span th:text="${rejected}"></span></h3>
+        <div class="dashboard-card total">
+            <h3>Total Requests</h3>
+            <p th:text="${total}"></p>
+        </div>
 
-<br><br>
+        <div class="dashboard-card open">
+            <h3>Open Requests</h3>
+            <p th:text="${open}"></p>
+        </div>
 
-<!-- ✅ NEW BUTTON -->
-<a href="/generateReport">
-    <button>📧 Generate Report</button>
-</a>
+        <div class="dashboard-card closed">
+            <h3>Closed Requests</h3>
+            <p th:text="${closed}"></p>
+        </div>
 
-<br><br>
+        <div class="dashboard-card rejected">
+            <h3>Rejected Requests</h3>
+            <p th:text="${rejected}"></p>
+        </div>
 
-<a href="/home">Go Back</a>
+    </div>
+
+    <!-- BUTTONS -->
+    <div class="action-buttons">
+
+        <a href="/generateReport">
+            <button class="btn">📧 Generate Report</button>
+        </a>
+
+        <a href="/home">
+            <button class="btn secondary">⬅ Back</button>
+        </a>
+
+    </div>
+
+</div>
 
 </body>
 </html>

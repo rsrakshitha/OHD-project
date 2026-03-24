@@ -1,40 +1,48 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Login</title>
+    <title>OHD Login</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
 <body>
 
-<h2>Login Page</h2>
+<div class="login-container">
 
-<!-- Login Form -->
-<form th:action="@{/login}" method="post">
+    <div class="login-card">
+        <h2>Online Help Desk</h2>
+        <p class="subtitle">Login to your account</p>
 
-    <label>Email:</label><br>
-    <input type="email" name="email" placeholder="Enter email" required>
-    <br><br>
+        <form th:action="@{/login}" method="post">
 
-    <label>Password:</label><br>
-    <input type="password" name="password" placeholder="Enter password" required>
-    <br><br>
+            <div class="input-group">
+                <label>Email</label>
+                <input type="email" name="email" placeholder="Enter your email" required>
+            </div>
 
-    <button type="submit">Login</button>
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" name="password" placeholder="Enter your password" required>
+            </div>
 
-</form>
+            <button type="submit" class="login-btn">Login</button>
 
-<!-- Error Message -->
-<p style="color:red" th:text="${error}"></p>
+        </form>
 
-<br>
+        <!-- Error -->
+        <p class="error" th:text="${error}"></p>
 
-<!-- Register Link -->
-<p>
-    New User?
-    <a th:href="@{/register}">Register Here</a>
-</p>
+        <p class="register-text">
+            Don't have an account?
+            <a th:href="@{/register}">Register</a>
+        </p>
+    </div>
+
+</div>
 
 </body>
 </html>

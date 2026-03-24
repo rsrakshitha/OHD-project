@@ -15,15 +15,11 @@ public class EmailService {
 
         try {
             SimpleMailMessage message = new SimpleMailMessage();
-
             message.setTo(to);
             message.setSubject(subject);
             message.setText(text);
-
             mailSender.send(message);
-
             System.out.println("Email sent successfully to: " + to);
-
         } catch (Exception e) {
             System.out.println("Error sending email: " + e.getMessage());
         }

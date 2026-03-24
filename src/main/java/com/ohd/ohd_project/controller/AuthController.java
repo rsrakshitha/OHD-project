@@ -9,27 +9,27 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-public class AuthController {
+public class AuthController 
+{
 
     @Autowired
     private UserRepository userRepository;
 
-    // ========================
-    // REGISTER PAGE
-    // ========================
+  
     @GetMapping("/register")
-    public String showRegister() {
+    public String showRegister() 
+    {
         return "register";
     }
 
-    // ========================
-    // HANDLE REGISTER
-    // ========================
+
     @PostMapping("/register")
-    public String register(@ModelAttribute User user, Model model) {
+    public String register(@ModelAttribute User user, Model model) 
+    {
 
         try {
-            if (user.getRole() == null || user.getRole().isEmpty()) {
+            if (user.getRole() == null || user.getRole().isEmpty()) 
+            {
                 user.setRole("STUDENT");
             }
 
@@ -37,32 +37,32 @@ public class AuthController {
 
             return "redirect:/login";
 
-        } catch (Exception e) {
+        } catch (Exception e) 
+        {
             model.addAttribute("error", "Registration failed");
             return "register";
         }
     }
 
-    // ========================
-    // LOGIN PAGE
-    // ========================
+
     @GetMapping("/login")
-    public String showLogin() {
+    public String showLogin() 
+    {
         return "login";
     }
 
-    // ========================
-    // LOGIN (FIXED PART)
-    // ========================
+ 
     @PostMapping("/login")
     public String login(@RequestParam String email,
                         @RequestParam String password,
                         Model model,
-                        HttpSession session) {
+                        HttpSession session) 
+    {
 
         User user = userRepository.findByEmail(email);
 
-        if (user == null || !password.equals(user.getPassword())) {
+        if (user == null || !password.equals(user.getPassword())) 
+        {
             model.addAttribute("error", "Invalid email or password");
             return "login";
         }
@@ -70,10 +70,12 @@ public class AuthController {
         session.setAttribute("loggedInUser", user);
         session.setAttribute("role", user.getRole());
 
-        if ("ADMIN".equals(user.getRole())) {
+        if ("ADMIN".equals(user.getRole())) 
+        {
             return "redirect:/dashboard";
         } 
-        else if ("FACULTY".equals(user.getRole())) {
+        else if ("FACULTY".equals(user.getRole())) 
+        {
             return "redirect:/home";
         } 
         else {
@@ -81,26 +83,19 @@ public class AuthController {
         }
     }
 
-    // ========================
-    // LOGOUT
-    // ========================
     @GetMapping("/logout")
-    public String logout(HttpSession session) {
+    public String logout(HttpSession session) 
+    {
         session.invalidate();
         return "redirect:/login";
     }
 
-    // ========================
-    // CHANGE PASSWORD PAGE
-    // ========================
     @GetMapping("/change-password")
     public String showChangePasswordPage() {
         return "change-password";
     }
 
-    // ========================
-    // CHANGE PASSWORD
-    // ========================
+
     @PostMapping("/change-password")
     public String changePassword(@RequestParam String oldPassword,
                                  @RequestParam String newPassword,

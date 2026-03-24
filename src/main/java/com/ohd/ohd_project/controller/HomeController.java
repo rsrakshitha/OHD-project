@@ -52,9 +52,6 @@ public class HomeController {
         return "create";
     }
 
-    // ========================
-    // SAVE REQUEST
-    // ========================
     @PostMapping("/save")
     public String saveRequest(@ModelAttribute Request request, HttpSession session) {
 
@@ -79,9 +76,6 @@ public class HomeController {
         return "redirect:/list";
     }
 
-    // ========================
-    // VIEW REQUESTS
-    // ========================
     @GetMapping("/list")
     public String viewRequests(Model model,
                                HttpSession session,
@@ -213,9 +207,6 @@ public class HomeController {
         return "redirect:/list";
     }
 
-    // ========================
-    // DASHBOARD
-    // ========================
     @GetMapping("/dashboard")
     public String dashboard(Model model, HttpSession session) {
 
@@ -236,9 +227,6 @@ public class HomeController {
         return "dashboard";
     }
 
-    // ========================
-    // MANUAL REPORT (NEW)
-    // ========================
     @GetMapping("/generateReport")
     public String generateReport(HttpSession session) {
 

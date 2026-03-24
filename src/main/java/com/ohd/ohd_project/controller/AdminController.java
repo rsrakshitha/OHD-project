@@ -15,38 +15,31 @@ public class AdminController {
 
     @Autowired
     private UserRepository userRepository;
-
-    // ========================
-    // ADMIN DASHBOARD
-    // ========================
+    
     @GetMapping("/admin/dashboard")
     public String adminDashboard(HttpSession session) {
 
         User user = (User) session.getAttribute("loggedInUser");
 
-        // 🔒 Only admin can access
-        if (user == null || !"ADMIN".equals(user.getRole())) {
+        if (user == null || !"ADMIN".equalsIgnoreCase(user.getRole())) {
             return "redirect:/login";
         }
 
         return "admin_dashboard";
     }
 
-    // ========================
-    // VIEW ALL USERS
-    // ========================
     @GetMapping("/admin/users")
     public String viewUsers(Model model, HttpSession session) {
 
         User user = (User) session.getAttribute("loggedInUser");
 
-        if (user == null || !"ADMIN".equals(user.getRole())) {
+        if (user == null || !"ADMIN".equalsIgnoreCase(user.getRole())) {
             return "redirect:/login";
         }
 
         List<User> users = userRepository.findAll();
+        System.out.println("Users size: " + users.size());
         model.addAttribute("users", users);
-
-        return "view_users";
+        return "view_users"; 
     }
 }

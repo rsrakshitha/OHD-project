@@ -2,58 +2,63 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Create Request</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
+
 <body>
 
-<h2>Create Service Request</h2>
+<div class="form-container">
 
-<form action="/save" method="post">
+    <div class="form-card">
+        <h2>Create Service Request</h2>
 
-    <!-- Title -->
-    Title:
-    <input type="text" name="title" required>
-    <br><br>
+        <form action="/save" method="post">
 
-    <!-- Facility -->
-    Facility:
-    <select name="facility" required>
-        <option value="">--Select Facility--</option>
-        <option value="Lab">Lab</option>
-        <option value="Hostel">Hostel</option>
-        <option value="Library">Library</option>
-        <option value="Canteen">Canteen</option>
-    </select>
-    <br><br>
+            <!-- Title -->
+            <label>Title</label>
+            <input type="text" name="title" required>
 
-    <!-- Description -->
-    Description:
-    <input type="text" name="description" required>
-    <br><br>
+            <!-- Facility -->
+            <label>Facility</label>
+            <select name="facility" required>
+                <option value="">--Select Facility--</option>
+                <option value="Lab">Lab</option>
+                <option value="Hostel">Hostel</option>
+                <option value="Library">Library</option>
+                <option value="Canteen">Canteen</option>
+            </select>
 
-    <!-- Priority -->
-    Priority:
-    <select name="priority" required>
-        <option value="">--Select Priority--</option>
-        <option value="LOW">Low</option>
-        <option value="MEDIUM">Medium</option>
-        <option value="HIGH">High</option>
-    </select>
-    <br><br>
+            <!-- Description -->
+            <label>Description</label>
+            <input type="text" name="description" required>
 
-    <!-- ✅ NEW: Severity -->
-    Severity:
-    <select name="severity" required>
-        <option value="">--Select Severity--</option>
-        <option value="LOW">LOW</option>
-        <option value="MEDIUM">MEDIUM</option>
-        <option value="HIGH">HIGH</option>
-        <option value="CRITICAL">CRITICAL</option>
-    </select>
-    <br><br>
+            <!-- Priority -->
+            <label>Priority</label>
+            <select name="priority" required>
+                <option value="">--Select Priority--</option>
+                <option value="LOW">Low</option>
+                <option value="MEDIUM">Medium</option>
+                <option value="HIGH">High</option>
+            </select>
 
-    <button type="submit">Submit</button>
+            <!-- Severity -->
+            <label>Severity</label>
+            <select name="severity" required>
+                <option value="">--Select Severity--</option>
+                <option value="LOW">LOW</option>
+                <option value="MEDIUM">MEDIUM</option>
+                <option value="HIGH">HIGH</option>
+                <option value="CRITICAL">CRITICAL</option>
+            </select>
 
-</form>
+            <button type="submit" class="submit-btn">Submit</button>
+
+        </form>
+    </div>
+
+</div>
 
 </body>
 </html>

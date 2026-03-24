@@ -1,17 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Admin Dashboard</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-<body>
 
-<h2>Admin Dashboard</h2>
+<body class="admin-bg">
 
-<a href="/admin/users">View Users</a>
+<div class="admin-container">
 
-<br><br>
+    <h2>Admin Dashboard</h2>
 
-<a href="/logout">Logout</a>
+    <a href="/admin/users" class="admin-link">View Users</a>
+
+    <br><br>
+
+    <a href="/logout" class="admin-link logout">Logout</a>
+
+</div>
 
 </body>
 </html>

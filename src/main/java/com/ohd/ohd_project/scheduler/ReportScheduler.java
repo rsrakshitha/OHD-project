@@ -16,10 +16,6 @@ public class ReportScheduler {
     @Autowired
     private EmailService emailService;
 
-    // ============================
-    // SCHEDULER DISABLED
-    // ============================
-
     /*
     // For testing (every 1 minute)
     @Scheduled(fixedRate = 60000)

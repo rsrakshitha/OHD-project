@@ -7,7 +7,6 @@
 
 <h2>All Requests</h2>
 
-<!-- ✅ FILTER SECTION (NEW) -->
 <form method="get" action="/list">
     Filter:
     <select name="status">
@@ -42,35 +41,28 @@
     <td th:text="${r.description}"></td>
     <td th:text="${r.priority}"></td>
 
-    <!-- ✅ FIX: Severity column was misplaced -->
     <td th:text="${r.severity}"></td>
 
-    <!-- ✅ Status -->
     <td th:text="${r.status}"></td>
 
-    <!-- ✅ Assigned -->
     <td th:text="${r.assignedTo != null ? r.assignedTo : 'Not Assigned'}"></td>
 
     <td th:text="${r.facility}"></td>
 
     <td>
 
-        <!-- ✅ Update Status -->
         <a th:href="@{/updateStatus/{id}(id=${r.id})}">
             Update Status
-        </a> |
+        </a> 
 
-        <!-- ✅ Assign -->
         <a th:href="@{/assign/{id}(id=${r.id})}">
             Assign
-        </a> |
+        </a> 
 
-        <!-- ✅ Close -->
         <a th:href="@{/close/{id}(id=${r.id})}">
             Close
-        </a> |
+        </a> 
 
-        <!-- ✅ Reject -->
         <a th:href="@{'/reject/' + ${r.id}}">Reject</a>
 
     </td>

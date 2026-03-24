@@ -1,15 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Online Help Desk</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
+
 <body>
 
-<h1>Online Help Desk System</h1>
-<h2>Project Running Successfully 🚀</h2>
+<!-- NAVBAR -->
+<div class="navbar">
+    <h2>Online Help Desk System</h2>
+</div>
 
-<a href="/create">Create Request</a><br>
-<a href="/list">View Requests</a>
+<!-- MAIN CONTENT -->
+<div class="home-container">
+
+    <div class="home-card">
+        <h1>Welcome 👋</h1>
+        <p>Manage and track campus service requests easily</p>
+
+        <div class="home-buttons">
+            <a href="/create">
+                <button class="btn">➕ Create Request</button>
+            </a>
+
+            <a href="/list">
+                <button class="btn secondary">📋 View Requests</button>
+            </a>
+        </div>
+    </div>
+
+</div>
 
 </body>
 </html>

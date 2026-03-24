@@ -1,32 +1,31 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>View Requests</title>
+    <title>View Users</title>
 </head>
 <body>
 
-<h2>All Requests</h2>
+<h2>All Users</h2>
 
 <table border="1">
     <tr>
         <th>ID</th>
-        <th>Title</th>
-        <th>Description</th>
-        <th>Status</th>
-        <th>Priority</th>
-        <th>Facility</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
     </tr>
-
-    <tr th:each="req : ${requests}">
-        <td th:text="${req.id}"></td>
-        <td th:text="${req.title}"></td>
-        <td th:text="${req.description}"></td>
-        <td th:text="${req.status}"></td>
-        <td th:text="${req.priority}"></td>
-        <td th:text="${req.facility}"></td>
+    
+    <tr th:each="user : ${users}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.email}"></td>
+        <td th:text="${user.role}"></td>
     </tr>
 
 </table>
+
+<br>
+<a href="/admin/dashboard">Back</a>
 
 </body>
 </html>

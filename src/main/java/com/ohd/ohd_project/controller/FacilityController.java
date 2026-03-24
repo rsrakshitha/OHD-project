@@ -15,13 +15,12 @@ public class FacilityController {
     @Autowired
     private FacilityRepository facilityRepository;
 
-    // SHOW ALL FACILITIES
+   
     @GetMapping("/admin/facilities")
     public String viewFacilities(Model model, HttpSession session) {
 
         User user = (User) session.getAttribute("loggedInUser");
 
-        // ✅ ONLY ADMIN ALLOWED
         if (user == null || !"ADMIN".equals(user.getRole())) {
             return "redirect:/login";
         }
@@ -30,7 +29,6 @@ public class FacilityController {
         return "facilities";
     }
 
-    // SHOW ADD FORM
     @GetMapping("/admin/facilities/add")
     public String showAddForm(Model model, HttpSession session) {
 
@@ -44,7 +42,6 @@ public class FacilityController {
         return "add-facility";
     }
 
-    // SAVE FACILITY
     @PostMapping("/admin/facilities/save")
     public String saveFacility(@ModelAttribute Facility facility, HttpSession session) {
 
@@ -58,7 +55,6 @@ public class FacilityController {
         return "redirect:/admin/facilities";
     }
 
-    // DELETE FACILITY
     @GetMapping("/admin/facilities/delete/{id}")
     public String deleteFacility(@PathVariable Long id, HttpSession session) {
 
@@ -72,7 +68,6 @@ public class FacilityController {
         return "redirect:/admin/facilities";
     }
 
-    // EDIT FACILITY
     @GetMapping("/admin/facilities/edit/{id}")
     public String editFacility(@PathVariable Long id, Model model, HttpSession session) {
 

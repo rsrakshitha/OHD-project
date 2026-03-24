@@ -13,7 +13,6 @@ public class Facility {
 
     private String description;
 
-    // getters and setters
 
     public Long getId() {
         return id;
