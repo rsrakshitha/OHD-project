@@ -81,6 +81,8 @@ The project follows MVC Architecture:
 6. Assignee updates status
 7. User tracks request
 8. Request closed
+   <img width="1536" height="1024" alt="ऑनलाइन हेल्प डेस्क प्रणाली अवलोकन" src="https://github.com/user-attachments/assets/6c4b1966-61cd-4173-8fe0-43cf0c6a2ec1" />
+
    <img width="538" height="956" alt="Untitled (1)" src="https://github.com/user-attachments/assets/614a6be8-8c4a-4f98-8b13-bfa4f85d8424" />
 
 
