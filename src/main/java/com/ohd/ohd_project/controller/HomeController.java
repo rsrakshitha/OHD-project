@@ -21,6 +21,7 @@ public class HomeController {
 
     private final String ADMIN_EMAIL = "rsrakshitha17@gmail.com";
 
+    // Method to send notifications to admin and request creator
     private void notifyUserAndAdmin(Request r, String subject, String message) {
         emailService.sendEmail(ADMIN_EMAIL, subject, message);
         if (r.getCreatedBy() != null) {
@@ -28,6 +29,7 @@ public class HomeController {
         }
     }
 
+    // ------------------ Login & Home ------------------
     @GetMapping("/")
     public String index() {
         return "login";
@@ -41,6 +43,7 @@ public class HomeController {
         return "index";
     }
 
+    // ------------------ Create Request ------------------
     @GetMapping("/create")
     public String createForm(HttpSession session) {
         if (session.getAttribute("loggedInUser") == null) return "redirect:/";
@@ -59,24 +62,31 @@ public class HomeController {
         return "redirect:/list";
     }
 
+    // ------------------ View Requests ------------------
     @GetMapping("/list")
     public String viewRequests(Model model, HttpSession session, @RequestParam(required = false) String status) {
         User user = (User) session.getAttribute("loggedInUser");
         if (user == null) return "redirect:/";
+
         if ("ADMIN".equals(user.getRole())) {
-            if (status == null || status.isEmpty()) model.addAttribute("requests", requestRepository.findAll());
-            else model.addAttribute("requests", requestRepository.findByStatus(status));
+            if (status == null || status.isEmpty())
+                model.addAttribute("requests", requestRepository.findAll());
+            else
+                model.addAttribute("requests", requestRepository.findByStatus(status));
         } else {
-            if (status == null || status.isEmpty()) model.addAttribute("requests", requestRepository.findByCreatedBy(user));
-            else model.addAttribute("requests",
-                    requestRepository.findByStatus(status).stream()
-                            .filter(r -> r.getCreatedBy() != null && r.getCreatedBy().getId() == user.getId())
-                            .toList()
-            );
+            if (status == null || status.isEmpty())
+                model.addAttribute("requests", requestRepository.findByCreatedBy(user));
+            else
+                model.addAttribute("requests",
+                        requestRepository.findByStatus(status).stream()
+                                .filter(r -> r.getCreatedBy() != null && r.getCreatedBy().getId() == user.getId())
+                                .toList()
+                );
         }
         return "request-list";
     }
 
+    // ------------------ Request Actions ------------------
     @GetMapping("/updateStatus/{id}")
     public String updateStatus(@PathVariable int id) {
         Request r = requestRepository.findById(id).orElse(null);
@@ -126,6 +136,17 @@ public class HomeController {
         return "redirect:/list";
     }
 
+    @GetMapping("/delete/{id}")
+    public String deleteRequest(@PathVariable int id) {
+        Request r = requestRepository.findById(id).orElse(null);
+        if (r != null) {
+            requestRepository.delete(r);
+            notifyUserAndAdmin(r, "Request Deleted", "Request '" + r.getTitle() + "' has been deleted.");
+        }
+        return "redirect:/list";
+    }
+
+    // ------------------ Dashboard ------------------
     @GetMapping("/dashboard")
     public String dashboard(Model model, HttpSession session) {
         if (session.getAttribute("loggedInUser") == null) return "redirect:/";
@@ -136,17 +157,41 @@ public class HomeController {
         return "dashboard";
     }
 
+    // ------------------ Generate Report (Email Only) ------------------
     @GetMapping("/generateReport")
     public String generateReport(HttpSession session) {
         if (session.getAttribute("loggedInUser") == null) return "redirect:/";
+
         long total = requestRepository.count();
         long closed = requestRepository.countByStatus("CLOSED");
         long open = requestRepository.countByStatusNot("CLOSED");
-        String report = "Report:\n\nTotal: " + total + "\nOpen: " + open + "\nClosed: " + closed;
-        emailService.sendEmail(ADMIN_EMAIL, "Report", report);
+        long rejected = requestRepository.countByStatus("REJECTED"); // Added rejected count
+
+        String report = "Request Report:\n\n"
+                + "Total Requests: " + total + "\n"
+                + "Open Requests: " + open + "\n"
+                + "Closed Requests: " + closed + "\n"
+                + "Rejected Requests: " + rejected;
+
+        emailService.sendEmail(ADMIN_EMAIL, "Request Report", report);
         return "redirect:/dashboard";
     }
 
+    // ------------------ View Reports Page ------------------
+    @GetMapping("/reports")
+    public String viewReports(Model model, HttpSession session) {
+        if (session.getAttribute("loggedInUser") == null) return "redirect:/";
+
+        model.addAttribute("requests", requestRepository.findAll());
+        model.addAttribute("total", requestRepository.count());
+        model.addAttribute("open", requestRepository.countByStatusNot("CLOSED"));
+        model.addAttribute("closed", requestRepository.countByStatus("CLOSED"));
+        model.addAttribute("rejected", requestRepository.countByStatus("REJECTED"));
+
+        return "reports"; // Thymeleaf template: reports.html
+    }
+
+    // ------------------ Help Page ------------------
     @GetMapping("/help")
     public String help(HttpSession session) {
         if (session.getAttribute("loggedInUser") == null) return "redirect:/";
