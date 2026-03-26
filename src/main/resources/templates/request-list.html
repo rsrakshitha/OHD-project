@@ -1,79 +1,69 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>Request List</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
+<div class="container mt-4">
+    <h2>All Requests</h2>
 
-<h2>All Requests</h2>
+    <!-- Filter Form -->
+    <form method="get" action="/list" class="mb-3">
+        <label>Filter by Status:</label>
+        <select name="status" class="form-select d-inline w-auto">
+            <option value="">All</option>
+            <option value="UNASSIGNED">Unassigned</option>
+            <option value="ASSIGNED">Assigned</option>
+            <option value="IN_PROGRESS">In Progress</option>
+            <option value="CLOSED">Closed</option>
+            <option value="REJECTED">Rejected</option>
+        </select>
+        <button type="submit" class="btn btn-primary btn-sm">Filter</button>
+    </form>
 
-<form method="get" action="/list">
-    Filter:
-    <select name="status">
-        <option value="">All</option>
-        <option value="UNASSIGNED">Unassigned</option>
-        <option value="ASSIGNED">Assigned</option>
-        <option value="IN_PROGRESS">In Progress</option>
-        <option value="CLOSED">Closed</option>
-        <option value="REJECTED">Rejected</option>
-    </select>
-    <button type="submit">Filter</button>
-</form>
+    <!-- Requests Table -->
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Priority</th>
+                <th>Severity</th>
+                <th>Status</th>
+                <th>Assigned To</th>
+                <th>Facility</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="r : ${requests}">
+                <td th:text="${r.title}"></td>
+                <td th:text="${r.description}"></td>
+                <td th:text="${r.priority}"></td>
+                <td th:text="${r.severity}"></td>
+                <td th:text="${r.status}"></td>
+                <td th:text="${r.assignedTo != null ? r.assignedTo : 'Not Assigned'}"></td>
+                <td th:text="${r.facility}"></td>
+                <td>
+                    <a th:href="@{/updateStatus/{id}(id=${r.id})}" class="btn btn-info btn-sm mb-1">Update</a>
+                    <a th:href="@{/assign/{id}(id=${r.id})}" class="btn btn-warning btn-sm mb-1">Assign</a>
+                    <a th:href="@{/close/{id}(id=${r.id})}" class="btn btn-success btn-sm mb-1">Close</a>
+                    <a th:href="@{'/reject/' + ${r.id}}" class="btn btn-danger btn-sm mb-1">Reject</a>
+                    <a th:href="@{'/delete/' + ${r.id}}"
+                       th:onclick="|return confirm('Are you sure you want to delete this request?');|"
+                       class="btn btn-dark btn-sm mb-1">
+                       Delete
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
-<br>
+    <a href="/home" class="btn btn-secondary mt-3">Back to Home</a>
+</div>
 
-<table border="1">
-
-<tr>
-    <th>Title</th>
-    <th>Description</th>
-    <th>Priority</th>
-    <th>Status</th>
-    <th>Assigned To</th>
-    <th>Facility</th>
-    <th>Actions</th>
-    <th>Severity</th>
-</tr>
-
-<tr th:each="r : ${requests}">
-
-    <td th:text="${r.title}"></td>
-    <td th:text="${r.description}"></td>
-    <td th:text="${r.priority}"></td>
-
-    <td th:text="${r.severity}"></td>
-
-    <td th:text="${r.status}"></td>
-
-    <td th:text="${r.assignedTo != null ? r.assignedTo : 'Not Assigned'}"></td>
-
-    <td th:text="${r.facility}"></td>
-
-    <td>
-
-        <a th:href="@{/updateStatus/{id}(id=${r.id})}">
-            Update Status
-        </a> 
-
-        <a th:href="@{/assign/{id}(id=${r.id})}">
-            Assign
-        </a> 
-
-        <a th:href="@{/close/{id}(id=${r.id})}">
-            Close
-        </a> 
-
-        <a th:href="@{'/reject/' + ${r.id}}">Reject</a>
-
-    </td>
-
-</tr>
-
-</table>
-
-<br><br>
-
-<a href="/home">Back to Home</a>
-
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>
